@@ -19,9 +19,5 @@ pub type Message {
 }
 
 pub type State {
-  State(
-    points: List(Point),
-    config: Config,
-    last_output_x: Option(Float),
-  )
+  State(points: List(Point), config: Config, last_output_x: Option(Float))
 }

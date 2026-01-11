@@ -1,10 +1,10 @@
+import gleam/io
 import gleam/list
 import gleam/option.{type Option, None, Some}
-import gleam/io
-import lab3/types.{type Config, type Point, Linear, Newton}
+import lab3/config
 import lab3/linear
 import lab3/newton
-import lab3/config
+import lab3/types.{type Config, type Point, Linear, Newton}
 
 pub fn interpolate_and_output(
   points: List(Point),

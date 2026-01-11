@@ -25,12 +25,12 @@ fn compute_terms(
       let order = list.length(all_points) - list.length(remaining)
       let dd = divided_difference(all_points, order)
       let new_acc = acc +. dd *. basis
-      
+
       let new_basis = case remaining {
         [p, ..] -> basis *. { x -. p.x }
         [] -> basis
       }
-      
+
       compute_terms(all_points, rest, x, new_acc, new_basis)
     }
   }
@@ -60,7 +60,7 @@ fn recursive_divided_diff(points: List(Point), order: Int) -> Float {
       let points_tail = [p_first, ..rest_tail]
       let left = divided_difference(list.drop(points, 1), order - 1)
       let right = divided_difference(points, order - 1)
-      
+
       case list.first(points_tail), get_nth(points_tail, order) {
         Ok(p0), Ok(pn) -> { left -. right } /. { pn.x -. p0.x }
         _, _ -> 0.0

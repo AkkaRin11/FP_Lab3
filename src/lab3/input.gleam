@@ -1,9 +1,9 @@
-import gleam/string
+import gleam/erlang/process
 import gleam/float
 import gleam/int
 import gleam/io
-import gleam/erlang/process
-import lab3/types.{type Point, type Message, AddPoint, Point, Shutdown}
+import gleam/string
+import lab3/types.{type Message, type Point, AddPoint, Point, Shutdown}
 
 @external(erlang, "io", "get_line")
 fn get_line(prompt: String) -> String

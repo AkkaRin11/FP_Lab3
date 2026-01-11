@@ -1,7 +1,7 @@
-import gleam/int
 import gleam/float
-import gleam/option.{type Option, None, Some}
+import gleam/int
 import gleam/io
+import gleam/option.{type Option, None, Some}
 import lab3/types.{type Config, type InterpolationMethod, Config, Linear, Newton}
 
 pub fn parse(args: List(String)) -> Result(Config, String) {
@@ -21,9 +21,9 @@ fn do_parse(
         _, None -> Error("Не указан параметр step")
       }
     }
-    
+
     ["linear", ..rest] -> do_parse(rest, Some(Linear), step)
-    
+
     ["newton", "n", n_str, ..rest] -> {
       case int.parse(n_str) {
         Ok(n) if n >= 2 -> do_parse(rest, Some(Newton(window_size: n)), step)
@@ -31,7 +31,7 @@ fn do_parse(
         Error(_) -> Error("Неверное значение n: " <> n_str)
       }
     }
-    
+
     ["step", step_str, ..rest] -> {
       case float.parse(step_str) {
         Ok(s) if s >. 0.0 -> do_parse(rest, method, Some(s))
@@ -39,7 +39,7 @@ fn do_parse(
         Error(_) -> Error("Неверное значение step: " <> step_str)
       }
     }
-    
+
     [unknown, ..rest] -> {
       io.println("Предупреждение: неизвестный параметр '" <> unknown <> "'")
       do_parse(rest, method, step)
@@ -55,12 +55,13 @@ pub fn method_name(method: InterpolationMethod) -> String {
 }
 
 pub fn format_float(f: Float) -> String {
-  let rounded = int.to_float(float.round(f *. 1000000.0)) /. 1000000.0
+  let rounded = int.to_float(float.round(f *. 1_000_000.0)) /. 1_000_000.0
   float.to_string(rounded)
 }
 
 pub fn print_usage() {
-  io.println("
+  io.println(
+    "
 Использование:
   gleam run -- linear step 0.7
   gleam run -- newton n 4 step 0.5
@@ -69,5 +70,6 @@ pub fn print_usage() {
   linear              Линейная интерполяция
   newton n <число>    Интерполяция Ньютона с окном из N точек
   step <число>        Шаг дискретизации (обязательно)
-")
+",
+  )
 }
