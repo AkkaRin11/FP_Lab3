@@ -55,17 +55,11 @@ fn divided_difference(points: List(Point), order: Int) -> Float {
 }
 
 fn recursive_divided_diff(points: List(Point), order: Int) -> Float {
-  case points, list.drop(points, 1) {
-    [p_first, ..], [_, ..rest_tail] -> {
-      let points_tail = [p_first, ..rest_tail]
-      let left = divided_difference(list.drop(points, 1), order - 1)
-      let right = divided_difference(points, order - 1)
+  let left = divided_difference(list.drop(points, 1), order - 1)
+  let right = divided_difference(points, order - 1)
 
-      case list.first(points_tail), get_nth(points_tail, order) {
-        Ok(p0), Ok(pn) -> { left -. right } /. { pn.x -. p0.x }
-        _, _ -> 0.0
-      }
-    }
+  case list.first(points), get_nth(points, order) {
+    Ok(p0), Ok(pn) -> { left -. right } /. { pn.x -. p0.x }
     _, _ -> 0.0
   }
 }
